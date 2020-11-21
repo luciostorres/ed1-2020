@@ -236,11 +236,27 @@ public class Calculator extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void novoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_novoActionPerformed
+        oct1.setText("");
+        oct2.setText("");
+        oct3.setText("");
+        oct4.setText("");
+        mask.setText("");
+        mask_custom.setText("");
         
+        oct1.requestFocus();
+        
+        DefaultTableModel model = (DefaultTableModel) jtb1.getModel();
+            model.setRowCount(0);
+            
     }//GEN-LAST:event_novoActionPerformed
 
     private void sairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sairActionPerformed
+        String[] escolha={"Sim","Não"};
+        int resp;        
+        resp = JOptionPane.showOptionDialog(null, "Tem certeza que deseja sair?", "Sair", 0, JOptionPane.QUESTION_MESSAGE,null , escolha, escolha[0]);
         
+        if(resp ==0)
+            System.exit(0);
     }//GEN-LAST:event_sairActionPerformed
 
     private void calcularMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_calcularMouseClicked
@@ -290,6 +306,72 @@ public class Calculator extends javax.swing.JFrame {
             oct3dec = Integer.parseInt(oct3.getText());
             oct4dec = Integer.parseInt(oct4.getText());
             maskdec = Integer.parseInt(mask.getText());
+
+            //Verificacao da classe
+            if ((oct1dec >= 1 && oct1dec <= 255) && (oct2dec >= 0 && oct2dec <= 255) && (oct3dec >= 0 && oct3dec <= 255) && (oct4dec >= 0 && oct4dec <= 255)) {
+
+                if (oct1dec >= 1 && oct1dec <= 127) {
+                    JOptionPane.showMessageDialog(null, "Classe A", "Classe", JOptionPane.INFORMATION_MESSAGE);
+                }
+                else if (oct1dec >= 128 && oct1dec <= 191) {
+                        JOptionPane.showMessageDialog(null, "Classe B", "Classe", JOptionPane.INFORMATION_MESSAGE);
+                }
+                else if (oct1dec >= 224 && oct1dec <= 239) {
+                        JOptionPane.showMessageDialog(null, "Classe D", "Classe", JOptionPane.INFORMATION_MESSAGE);
+                }
+                else if(oct1dec > 239){
+                        JOptionPane.showMessageDialog(null, "Classe E", "Classe", JOptionPane.INFORMATION_MESSAGE);
+                }
+                else if (oct1dec >= 192 && oct1dec <= 223) {
+                    JOptionPane.showMessageDialog(null, "Classe C", "Classe", JOptionPane.INFORMATION_MESSAGE);
+                    
+                    if (maskdec >= 25 && maskdec <= 30){
+                    //Mascara
+                    switch (maskdec){
+                        case 25:
+                            mask_custom.setText("255.255.255.128");
+                            break;
+                        case 26:
+                            mask_custom.setText("255.255.255.192");
+                            break;
+                        case 27:
+                            mask_custom.setText("255.255.255.224");
+                            break;
+                        case 28:
+                            mask_custom.setText("255.255.255.240");
+                            break;
+                        case 29:
+                            mask_custom.setText("255.255.255.248");
+                            break;
+                        case 30:
+                            mask_custom.setText("255.255.255.252");
+                            break;  
+                    }
+
+                        host = 32 - maskdec;
+                        host = (int) Math.pow(2, host);
+
+                        while (bro4 < 255){
+                            rede=(oct1dec +"." +oct2dec +"." +oct3dec +"." +re4);
+                            sub1 = re4 + 1;
+
+                            bro4 = re4 + host - 1;
+                            broadcast=(oct1dec +"." +oct2dec +"." +oct3dec +"." + bro4);
+                            sub2 = bro4 - 1;
+
+                            re4 = bro4+1;
+                            intervalo=(oct1dec + "." + oct2dec + "." + oct3dec + "." + sub1 + " a " + oct1dec + "." + oct2dec + "." + oct3dec + "." + sub2);
+
+                            DefaultTableModel val = (DefaultTableModel) jtb1.getModel();
+                               val.addRow(new String[]{rede,intervalo,broadcast});
+                        }
+                    }
+                    else 
+                        JOptionPane.showMessageDialog(null, "Barramento inválido para classe!","Erro!",JOptionPane.ERROR_MESSAGE);
+                }
+            }
+            else 
+                JOptionPane.showMessageDialog(null, "Ip inválido!","Erro!",JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_calcularMouseClicked
 

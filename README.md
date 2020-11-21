@@ -15,7 +15,7 @@ Etapa| Descrição| Status |
 4|Lógica matemática|Concluído|
 5|Definir categoria de rede  |Concluído|
 6|Desenvolvimento inicial sem estrutura|Em execução|
-7|Adaptação para estrutura de lista  | |
+7|Adaptação para estrutura de lista  |Em execução|
 8|Lista, preenchimento e listagem||
 9|Tratamento de erros e correções  |  |
 
