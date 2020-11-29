@@ -14,9 +14,9 @@ Etapa| Descrição| Status |
 3|Elaboração de Interface  |Concluído|
 4|Lógica matemática|Concluído|
 5|Definir categoria de rede  |Concluído|
-6|Desenvolvimento inicial sem estrutura|Em execução|
-7|Adaptação para estrutura de lista  |Em execução|
-8|Lista, preenchimento e listagem||
-9|Tratamento de erros e correções  |  |
+6|Desenvolvimento inicial sem estrutura|Concluído|
+7|Adaptação para estrutura de lista  |Concluído|
+8|Lista, preenchimento e listagem|Concluído|
+9|Tratamento de erros e correções  |Concluído|
 
 # Lúcio Torres
