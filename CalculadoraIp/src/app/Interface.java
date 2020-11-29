@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package javaapplication2;
+package app;
 
 import javax.swing.JOptionPane;
 
@@ -39,7 +39,6 @@ public class Interface extends javax.swing.JFrame {
         sobre = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setPreferredSize(new java.awt.Dimension(660, 422));
         setResizable(false);
 
         iniciar.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N

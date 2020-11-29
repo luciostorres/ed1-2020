@@ -1,19 +1,13 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-package javaapplication2;
+package app;
 
 
+import app.linked_list.ItemLista;
+import app.linked_list.ListaFaixa;
 import java.awt.event.KeyEvent;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
-/**
- *
- * @author Aluno
- */
+
 public class Calculator extends javax.swing.JFrame {
 
     /**
@@ -124,6 +118,11 @@ public class Calculator extends javax.swing.JFrame {
         calcular.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 calcularMouseClicked(evt);
+            }
+        });
+        calcular.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                calcularActionPerformed(evt);
             }
         });
         calcular.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -269,6 +268,7 @@ public class Calculator extends javax.swing.JFrame {
         int oct1dec, oct2dec, oct3dec, oct4dec, maskdec, host,op;
         boolean erro = false;
         String rede,intervalo,broadcast;   
+        ListaFaixa lista = new ListaFaixa();
         
         try{
             op = Integer.parseInt(oct1.getText());
@@ -348,6 +348,35 @@ public class Calculator extends javax.swing.JFrame {
                             break;  
                     }
 
+                        host = 32 - maskdec;
+                        host = (int) Math.pow(2, host);
+
+                        while (bro4 < 255){
+                            rede=(oct1dec +"." +oct2dec +"." +oct3dec +"." +re4);
+                            sub1 = re4 + 1;
+
+                            bro4 = re4 + host - 1;
+                            broadcast=(oct1dec +"." +oct2dec +"." +oct3dec +"." + bro4);
+                            sub2 = bro4 - 1;
+
+                            re4 = bro4+1;
+                            intervalo=(oct1dec + "." + oct2dec + "." + oct3dec + "." + sub1 + " a " + oct1dec + "." + oct2dec + "." + oct3dec + "." + sub2);
+
+                            lista.add(new FaixaIp(rede, intervalo, broadcast));
+
+                        }
+                        
+                       if (lista.isEmpty()){
+                           JOptionPane.showMessageDialog(null, "A lista está vazia","Erro!",JOptionPane.ERROR_MESSAGE);
+                       }
+                       else {
+                           ItemLista item = lista.getFirst();
+                           DefaultTableModel val = (DefaultTableModel) jtb1.getModel();
+                           while (item != null){
+                              val.addRow(item.getDado().toStringArray());
+                              item = item.moveNext();
+                           }
+                       }
                     }
                     else 
                         JOptionPane.showMessageDialog(null, "Barramento inválido para classe!","Erro!",JOptionPane.ERROR_MESSAGE);
@@ -419,6 +448,10 @@ public class Calculator extends javax.swing.JFrame {
         Sobre sob = new Sobre();
         sob.setVisible(true);
     }//GEN-LAST:event_sobreMouseClicked
+
+    private void calcularActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_calcularActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_calcularActionPerformed
 
     /**
      * @param args the command line arguments
