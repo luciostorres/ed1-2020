@@ -4,6 +4,11 @@ package app;
 import app.linked_list.ItemLista;
 import app.linked_list.ListaFaixa;
 import java.awt.event.KeyEvent;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
@@ -42,6 +47,7 @@ public class Calculator extends javax.swing.JFrame {
         calcular = new javax.swing.JButton();
         jLabel4 = new javax.swing.JLabel();
         mask_custom = new javax.swing.JLabel();
+        botao_exportar = new javax.swing.JButton();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         novo = new javax.swing.JMenuItem();
@@ -135,6 +141,13 @@ public class Calculator extends javax.swing.JFrame {
 
         mask_custom.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
 
+        botao_exportar.setText("Export");
+        botao_exportar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botao_exportarActionPerformed(evt);
+            }
+        });
+
         jMenu1.setText("Iniciar");
 
         novo.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F2, 0));
@@ -202,7 +215,10 @@ public class Calculator extends javax.swing.JFrame {
                                 .addComponent(jLabel4)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(mask_custom)))
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(botao_exportar)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -228,7 +244,8 @@ public class Calculator extends javax.swing.JFrame {
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 239, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(29, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(botao_exportar))
         );
 
         pack();
@@ -453,6 +470,37 @@ public class Calculator extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_calcularActionPerformed
 
+    private void botao_exportarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botao_exportarActionPerformed
+
+         DefaultTableModel val = (DefaultTableModel) jtb1.getModel();
+         
+         JFileChooser f = new JFileChooser();
+        f.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY); 
+        f.showSaveDialog(null);
+
+        
+        String filePath = f.getSelectedFile() + "\\export-result.txt";
+        File file = new File(filePath);
+        try {
+            FileWriter fw = new FileWriter(file);
+            BufferedWriter bw = new BufferedWriter(fw);
+            
+            for(int i = 0; i < val.getRowCount(); i++){//rows
+                for(int j = 0; j < val.getColumnCount(); j++){//columns
+                    bw.write(val.getValueAt(i, j).toString()+" ");
+                }
+                bw.newLine();
+            }
+            
+            bw.close();
+            fw.close();
+            
+        } catch (IOException ex) {
+            
+        }
+
+    }//GEN-LAST:event_botao_exportarActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -492,6 +540,7 @@ public class Calculator extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton botao_exportar;
     private javax.swing.JButton calcular;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
